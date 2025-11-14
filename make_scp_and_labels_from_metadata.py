@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-df = pd.read_csv("/content/SincNet/flora_voice_dataset/metadata.csv")
+df = pd.read_csv("/content/SER_with_sincnet_mravanelli/flora_voice_dataset/metadata.csv")
 emotions = sorted(df["emotion"].unique())
 
 emotion_id = {}
@@ -19,6 +19,10 @@ if "dev" not in df["split"].unique():
     test = df[df["split"] == "test"]
     train["split"], dev["split"] = "train", "dev"
     df = pd.concat([train, dev, test])
+
+print('Total no of training samples:', len(train_df))
+print('Total no of test samples:', len(test))
+print('Total no of validation samples:', len(dev))
 
 # --- Write SCP files using itertuples() ---
 def write_scp(df_subset, fname):
